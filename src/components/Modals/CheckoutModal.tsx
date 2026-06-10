@@ -102,22 +102,22 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ onClose, onSuccess
           <div className="flex-1 space-y-3 md:space-y-4 shrink-0">
             <div className="flex justify-between text-zinc-400">
               <span>Subtotal</span>
-              <span className="font-mono">${subtotal.toFixed(2)}</span>
+              <span className="font-mono">{settings.currencySymbol}{subtotal.toFixed(2)}</span>
             </div>
             {discountAmount > 0 && (
               <div className="flex justify-between text-emerald-400">
                 <span>Discount</span>
-                <span className="font-mono">-${discountAmount.toFixed(2)}</span>
+                <span className="font-mono">-{settings.currencySymbol}{discountAmount.toFixed(2)}</span>
               </div>
             )}
             <div className="flex justify-between text-zinc-400">
               <span>Tax ({taxRate}%)</span>
-              <span className="font-mono">${tax.toFixed(2)}</span>
+              <span className="font-mono">{settings.currencySymbol}{tax.toFixed(2)}</span>
             </div>
             {settings.serviceChargeEnabled && (
               <div className="flex justify-between text-zinc-400">
                 <span>Service Charge</span>
-                <span className="font-mono">${serviceCharge.toFixed(2)}</span>
+                <span className="font-mono">{settings.currencySymbol}{serviceCharge.toFixed(2)}</span>
               </div>
             )}
             {settings.tipEnabled && (
@@ -137,11 +137,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ onClose, onSuccess
           <div className="mt-6 pt-4 border-t border-zinc-800">
             <div className="flex justify-between items-end mb-2">
               <span className="text-zinc-400">Total Due</span>
-              <span className="text-3xl font-black text-amber-500 font-mono tracking-tighter">${grandTotal.toFixed(2)}</span>
+              <span className="text-3xl font-black text-amber-500 font-mono tracking-tighter">{settings.currencySymbol}{grandTotal.toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-end">
               <span className="text-zinc-500 text-sm">Remaining</span>
-              <span className="text-lg font-bold text-rose-400 font-mono">${remaining.toFixed(2)}</span>
+              <span className="text-lg font-bold text-rose-400 font-mono">{settings.currencySymbol}{remaining.toFixed(2)}</span>
             </div>
           </div>
         </div>
@@ -193,7 +193,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ onClose, onSuccess
             {payments.map((p, i) => (
               <div key={i} className="flex justify-between items-center bg-zinc-900/50 p-2 rounded border border-zinc-800/50">
                 <span className="text-sm text-zinc-400 capitalize">{p.method}</span>
-                <span className="font-mono text-zinc-300">${p.amount.toFixed(2)}</span>
+                <span className="font-mono text-zinc-300">{settings.currencySymbol}{p.amount.toFixed(2)}</span>
               </div>
             ))}
           </div>
@@ -201,7 +201,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({ onClose, onSuccess
           {cashChange > 0 && (
             <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg flex justify-between items-center mb-4">
               <span className="text-emerald-400 font-medium">Change Due</span>
-              <span className="text-xl font-bold font-mono text-emerald-400">${cashChange.toFixed(2)}</span>
+              <span className="text-xl font-bold font-mono text-emerald-400">{settings.currencySymbol}{cashChange.toFixed(2)}</span>
             </div>
           )}
 

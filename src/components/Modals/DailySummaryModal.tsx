@@ -8,7 +8,7 @@ interface DailySummaryModalProps {
 }
 
 export const DailySummaryModal: React.FC<DailySummaryModalProps> = ({ onClose }) => {
-  const { pastOrders } = usePos();
+  const { pastOrders, settings } = usePos();
 
   const totalRevenue = pastOrders.reduce((sum, o) => sum + o.total, 0);
   const orderCount = pastOrders.length;
@@ -47,7 +47,7 @@ export const DailySummaryModal: React.FC<DailySummaryModalProps> = ({ onClose })
               <DollarSign className="w-4 h-4 text-emerald-400" />
               <span className="text-sm font-medium uppercase tracking-wider">Total Revenue</span>
             </div>
-            <div className="text-3xl font-black text-zinc-100 font-mono">${totalRevenue.toFixed(2)}</div>
+            <div className="text-3xl font-black text-zinc-100 font-mono">{settings.currencySymbol}{totalRevenue.toFixed(2)}</div>
           </div>
           
           <div className="bg-[#18181b] border border-zinc-800 rounded-xl p-5">
@@ -63,7 +63,7 @@ export const DailySummaryModal: React.FC<DailySummaryModalProps> = ({ onClose })
               <Users className="w-4 h-4 text-blue-400" />
               <span className="text-sm font-medium uppercase tracking-wider">Avg Order Value</span>
             </div>
-            <div className="text-3xl font-black text-zinc-100 font-mono">${aov.toFixed(2)}</div>
+            <div className="text-3xl font-black text-zinc-100 font-mono">{settings.currencySymbol}{aov.toFixed(2)}</div>
           </div>
         </div>
 
@@ -74,15 +74,15 @@ export const DailySummaryModal: React.FC<DailySummaryModalProps> = ({ onClose })
         <div className="grid grid-cols-3 gap-4">
           <div className="bg-[#18181b] p-4 rounded-xl border border-zinc-800 flex flex-col items-center">
             <span className="text-zinc-500 text-sm mb-1 uppercase tracking-wider font-bold">Cash</span>
-            <span className="text-xl font-mono text-zinc-200">${revenueByMethod.cash.toFixed(2)}</span>
+            <span className="text-xl font-mono text-zinc-200">{settings.currencySymbol}{revenueByMethod.cash.toFixed(2)}</span>
           </div>
           <div className="bg-[#18181b] p-4 rounded-xl border border-zinc-800 flex flex-col items-center">
             <span className="text-zinc-500 text-sm mb-1 uppercase tracking-wider font-bold">Card</span>
-            <span className="text-xl font-mono text-zinc-200">${revenueByMethod.card.toFixed(2)}</span>
+            <span className="text-xl font-mono text-zinc-200">{settings.currencySymbol}{revenueByMethod.card.toFixed(2)}</span>
           </div>
           <div className="bg-[#18181b] p-4 rounded-xl border border-zinc-800 flex flex-col items-center">
             <span className="text-zinc-500 text-sm mb-1 uppercase tracking-wider font-bold">UPI</span>
-            <span className="text-xl font-mono text-zinc-200">${revenueByMethod.upi.toFixed(2)}</span>
+            <span className="text-xl font-mono text-zinc-200">{settings.currencySymbol}{revenueByMethod.upi.toFixed(2)}</span>
           </div>
         </div>
       </motion.div>

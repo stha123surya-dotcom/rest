@@ -10,7 +10,7 @@ interface OrderHistoryModalProps {
 }
 
 export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({ onClose, onViewReceipt }) => {
-  const { pastOrders } = usePos();
+  const { pastOrders, settings } = usePos();
   const [filter, setFilter] = useState<'all'|'cash'|'card'|'upi'>('all');
 
   const filteredOrders = pastOrders.filter(o => {
@@ -68,7 +68,7 @@ export const OrderHistoryModal: React.FC<OrderHistoryModalProps> = ({ onClose, o
                   </div>
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  <span className="font-mono font-bold text-zinc-100">${order.total.toFixed(2)}</span>
+                  <span className="font-mono font-bold text-zinc-100">{settings.currencySymbol}{order.total.toFixed(2)}</span>
                   <button 
                     onClick={() => onViewReceipt(order)}
                     className="text-xs text-amber-500 hover:text-amber-400 font-medium underline-offset-4 hover:underline"

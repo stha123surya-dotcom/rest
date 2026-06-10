@@ -59,7 +59,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ order, onClose }) =>
                 <tr key={item.id} className="text-zinc-200 print:text-black">
                   <td className="py-1 align-top">{item.quantity}</td>
                   <td className="py-1 align-top pr-2">{item.name}</td>
-                  <td className="py-1 align-top text-right">${(item.price * item.quantity).toFixed(2)}</td>
+                  <td className="py-1 align-top text-right">{settings.currencySymbol}{(item.price * item.quantity).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
@@ -68,33 +68,33 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ order, onClose }) =>
           <div className="border-t border-dashed border-zinc-800 print:border-black pt-2 space-y-1 text-zinc-400 print:text-gray-800">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>${order.subtotal.toFixed(2)}</span>
+              <span>{settings.currencySymbol}{order.subtotal.toFixed(2)}</span>
             </div>
             {order.discount > 0 && (
               <div className="flex justify-between">
                 <span>Discount</span>
-                <span>-${order.discount.toFixed(2)}</span>
+                <span>-{settings.currencySymbol}{order.discount.toFixed(2)}</span>
               </div>
             )}
             <div className="flex justify-between">
               <span>Tax ({order.taxRate}%)</span>
-              <span>${order.tax.toFixed(2)}</span>
+              <span>{settings.currencySymbol}{order.tax.toFixed(2)}</span>
             </div>
             {order.serviceCharge > 0 && (
               <div className="flex justify-between">
                 <span>Service Charge</span>
-                <span>${order.serviceCharge.toFixed(2)}</span>
+                <span>{settings.currencySymbol}{order.serviceCharge.toFixed(2)}</span>
               </div>
             )}
             {order.tip > 0 && (
               <div className="flex justify-between">
                 <span>Tip</span>
-                <span>${order.tip.toFixed(2)}</span>
+                <span>{settings.currencySymbol}{order.tip.toFixed(2)}</span>
               </div>
             )}
             <div className="flex justify-between pt-2 border-t border-dashed border-zinc-800 print:border-black text-zinc-100 print:text-black font-bold text-base">
               <span>Total</span>
-              <span>${order.total.toFixed(2)}</span>
+              <span>{settings.currencySymbol}{order.total.toFixed(2)}</span>
             </div>
           </div>
 
@@ -103,13 +103,13 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ order, onClose }) =>
             {order.payments.map((p, i) => (
               <div key={i} className="flex justify-between text-sm">
                 <span className="capitalize">{p.method}</span>
-                <span>${p.amount.toFixed(2)}</span>
+                <span>{settings.currencySymbol}{p.amount.toFixed(2)}</span>
               </div>
             ))}
             {order.cashChange !== undefined && order.cashChange > 0 && (
               <div className="flex justify-between text-sm mt-1">
                 <span>Change Given</span>
-                <span>${order.cashChange.toFixed(2)}</span>
+                <span>{settings.currencySymbol}{order.cashChange.toFixed(2)}</span>
               </div>
             )}
           </div>

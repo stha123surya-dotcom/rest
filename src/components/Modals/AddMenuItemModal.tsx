@@ -9,7 +9,7 @@ interface AddMenuItemModalProps {
 }
 
 export const AddMenuItemModal: React.FC<AddMenuItemModalProps> = ({ onClose }) => {
-  const { addMenuItem } = usePos();
+  const { addMenuItem, settings } = usePos();
   
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -61,7 +61,7 @@ export const AddMenuItemModal: React.FC<AddMenuItemModalProps> = ({ onClose }) =
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-zinc-500 mb-1">Price ($)</label>
+              <label className="block text-xs text-zinc-500 mb-1">Price ({settings.currencySymbol})</label>
               <input 
                 type="number" 
                 value={price} 

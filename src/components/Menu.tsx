@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { AddMenuItemModal } from './Modals/AddMenuItemModal';
 
 export const Menu: React.FC = () => {
-  const { menu, activeOrders, selectedTableId, selectedOrderId, updateOrder, createOrder, setSelectedOrderId, setSelectedTableId } = usePos();
+  const { menu, activeOrders, selectedTableId, selectedOrderId, updateOrder, createOrder, setSelectedOrderId, setSelectedTableId, settings } = usePos();
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddMenuModal, setShowAddMenuModal] = useState(false);
@@ -74,13 +74,13 @@ export const Menu: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 bg-[#121212] flex flex-col">
+    <div className="flex-1 bg-[#121212] flex flex-col overflow-hidden">
       <div className="p-4 bg-[#1A1A1A] border-b border-[#2A2A2A] flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-white font-bold text-lg hidden md:block">Menu</h2>
+          <h2 className="text-white font-bold text-lg hidden lg:block">Menu</h2>
           <button 
             onClick={() => setSelectedTableId(null)}
-            className="md:hidden flex items-center gap-2 text-zinc-400 hover:text-zinc-100 bg-[#222] px-3 py-1.5 rounded-lg border border-[#333]"
+            className="lg:hidden flex items-center gap-2 text-zinc-400 hover:text-zinc-100 bg-[#222] px-3 py-1.5 rounded-lg border border-[#333]"
           >
             <span className="font-bold text-xs uppercase tracking-wider">Back to Floor Plan</span>
           </button>
@@ -131,20 +131,37 @@ export const Menu: React.FC = () => {
               onClick={() => handleItemClick(item)}
               className={`
                 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg p-3 relative overflow-hidden
-                transition-colors flex flex-col
+                transition-colors flex flex-col justify-between h-full min-h-[140px]
                 ${item.available 
                   ? 'hover:border-[#FFBF00] cursor-pointer' 
                   : 'opacity-50 cursor-not-allowed'}
               `}
             >
-              <div className="flex justify-between items-start mb-2">
-                <span className={`w-3 h-3 border ${item.type === 'veg' ? 'border-emerald-500' : 'border-red-500'} p-[1px] flex items-center justify-center`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${item.type === 'veg' ? 'bg-emerald-500' : 'bg-red-500'}`}></span>
-                </span>
-                <span className="text-[#FFBF00] font-mono text-xs">${item.price.toFixed(2)}</span>
+              <div className="flex flex-col flex-1">
+                <div className="flex justify-between items-start mb-2">
+                  <span className={`w-3 h-3 border ${item.type === 'veg' ? 'border-emerald-500' : 'border-red-500'} p-[1px] flex items-center justify-center`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${item.type === 'veg' ? 'bg-emerald-500' : 'bg-red-500'}`}></span>
+                  </span>
+                  <span className="text-[#FFBF00] font-mono text-xs">{settings.currencySymbol}{item.price.toFixed(2)}</span>
+                </div>
+                <h3 className="text-sm font-bold text-zinc-100">{item.name}</h3>
+                <p className="text-[10px] text-gray-500 mt-1 line-clamp-2">{item.available ? item.description : 'Unavailable'}</p>
               </div>
-              <h3 className="text-sm font-bold">{item.name}</h3>
-              <p className="text-[10px] text-gray-500 mt-1 flex-1">{item.available ? item.description : 'Unavailable'}</p>
+
+              {item.available && (
+                <div className="mt-3 shrink-0">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleItemClick(item);
+                    }}
+                    className="w-full py-1.5 bg-[#FFBF00]/10 hover:bg-[#FFBF00] border border-[#FFBF00]/20 hover:border-[#FFBF00] text-[#FFBF00] hover:text-[#121212] font-black text-[10px] uppercase tracking-wider rounded transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                  >
+                    <Plus className="w-3 h-3" />
+                    <span>Add to Order</span>
+                  </button>
+                </div>
+              )}
               
               {!item.available && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none"></div>

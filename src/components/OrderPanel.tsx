@@ -20,7 +20,7 @@ export const OrderPanel: React.FC<OrderPanelProps> = ({ onOpenCheckout, onOpenKO
 
   if (!table) {
     return (
-      <div className="w-full md:w-[320px] bg-[#1A1A1A] border-t md:border-t-0 md:border-l border-[#2A2A2A] flex flex-col justify-center items-center text-gray-500 h-[50vh] md:h-full shrink-0">
+      <div className="w-full lg:w-[320px] bg-[#1A1A1A] lg:border-l border-[#2A2A2A] flex flex-col justify-center items-center text-gray-500 h-full shrink-0">
         Select a table
       </div>
     );
@@ -28,7 +28,7 @@ export const OrderPanel: React.FC<OrderPanelProps> = ({ onOpenCheckout, onOpenKO
 
   if (!order) {
     return (
-      <div className="w-full md:w-[320px] bg-[#1A1A1A] border-t md:border-t-0 md:border-l border-[#2A2A2A] flex flex-col p-6 h-[50vh] md:h-full shrink-0">
+      <div className="w-full lg:w-[320px] bg-[#1A1A1A] lg:border-l border-[#2A2A2A] flex flex-col p-6 h-full shrink-0">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h2 className="text-lg font-bold text-[#FFBF00]">Table T-{table.number.toString().padStart(2, '0')}</h2>
@@ -91,7 +91,7 @@ export const OrderPanel: React.FC<OrderPanelProps> = ({ onOpenCheckout, onOpenKO
   };
 
   return (
-    <div className="w-full md:w-[320px] lg:w-[320px] bg-[#1A1A1A] border-t md:border-t-0 md:border-l border-[#2A2A2A] flex flex-col h-[50vh] md:h-full shrink-0">
+    <div className="w-full lg:w-[320px] bg-[#1A1A1A] lg:border-l border-[#2A2A2A] flex flex-col h-full shrink-0 overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-[#2A2A2A] flex flex-col bg-[#1E1E1E]">
         <div className="flex justify-between items-start mb-2">
@@ -203,7 +203,7 @@ export const OrderPanel: React.FC<OrderPanelProps> = ({ onOpenCheckout, onOpenKO
                     </div>
                   </td>
                   <td className="p-3 align-top text-right font-mono text-gray-300">
-                    {(item.price * item.quantity).toFixed(2)}
+                    {settings.currencySymbol}{(item.price * item.quantity).toFixed(2)}
                   </td>
                 </motion.tr>
               ))}
@@ -216,7 +216,7 @@ export const OrderPanel: React.FC<OrderPanelProps> = ({ onOpenCheckout, onOpenKO
       <div className="p-4 bg-[#1E1E1E] border-t border-[#2A2A2A] space-y-2">
         <div className="flex justify-between text-xs text-gray-400">
           <span>Subtotal</span>
-          <span className="font-mono">{subtotal.toFixed(2)}</span>
+          <span className="font-mono">{settings.currencySymbol}{subtotal.toFixed(2)}</span>
         </div>
 
         {/* Tax Quick Adjust */}
@@ -233,7 +233,7 @@ export const OrderPanel: React.FC<OrderPanelProps> = ({ onOpenCheckout, onOpenKO
             />
             <span className="text-[10px]">%)</span>
           </div>
-          <span className="font-mono text-gray-400">{tax.toFixed(2)}</span>
+          <span className="font-mono text-gray-400">{settings.currencySymbol}{tax.toFixed(2)}</span>
         </div>
 
         {/* Discount Quick Toggle */}
@@ -265,13 +265,13 @@ export const OrderPanel: React.FC<OrderPanelProps> = ({ onOpenCheckout, onOpenKO
         {settings.serviceChargeEnabled && (
           <div className="flex justify-between text-xs text-gray-400">
             <span>Service Charge ({settings.serviceChargeRate}%)</span>
-            <span className="font-mono">{serviceCharge.toFixed(2)}</span>
+            <span className="font-mono">{settings.currencySymbol}{serviceCharge.toFixed(2)}</span>
           </div>
         )}
 
         <div className="flex justify-between text-lg font-bold text-[#FFBF00] pt-2 border-t border-[#2A2A2A]">
           <span>Total</span>
-          <span className="font-mono">${total.toFixed(2)}</span>
+          <span className="font-mono">{settings.currencySymbol}{total.toFixed(2)}</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2 mt-4">
