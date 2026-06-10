@@ -1,0 +1,6 @@
+{
+  "name": "Amber POS",
+  "description": "A fully functional, client-side restaurant POS system with a dark charcoal and amber theme.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
